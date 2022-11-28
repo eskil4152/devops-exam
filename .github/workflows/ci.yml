@@ -5,7 +5,7 @@ name: CI pipeline
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
       - main
@@ -23,4 +23,4 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn --no-transfer-progress -B compile --file pom.xml
+        run: mvn -B package --file pom.xml
