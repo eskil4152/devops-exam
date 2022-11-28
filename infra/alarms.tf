@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "many_carts" {
-  alarm_name          = "Threshold for over 5 carts"
+  alarm_name          = "Threshold for over 5 carts -- ${var.candidate_id}"
   namespace           = var.candidate_id
   metric_name         = "carts.value"
 
