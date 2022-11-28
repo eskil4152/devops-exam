@@ -5,4 +5,11 @@ terraform {
       version = "4.40.0"
     }
   }
+
+  backend "s3" {
+    bucket = "analytics-1052"
+    key = "state-file/terraform.state"
+    region = "eu-north-1"
+  }
+
 }

@@ -40,5 +40,4 @@
         - Du må ikke ha :$rev og :latest, men det gjør det lett å finne alle versjonene av imaget du har laget, og å alltid ha en latest, som er fint til f.eks. AppRunner
 
 # Task 5
-    Terraform prøver å lage en bucket som heter pgr301-2021-terraform-state i provider.tf, derfor kommer det problemet
-    I databucket.tf lager den nå en ny s3-bucket, som også inneholder en state fil. Da husker terraform blant annet at den bucketen allerede er laget
+    Terraform prøver å lage en bucket som heter analytics-jim, men siden det ikke er en state fil på github eller s3 så vil ikke terraform huske at den bucketen allerede er laget
