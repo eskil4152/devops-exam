@@ -1,18 +1,31 @@
 package no.kristiania.devopsexam;
 
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController()
-public class ShoppingCartController {
+public class ShoppingCartController implements ApplicationListener<ApplicationReadyEvent> {
+
+    private Map<String, Cart> cartMap = new HashMap();
+    private final CartService cartService;
+    private MeterRegistry meterRegistry;
+
+    Timer timer = Timer.builder("timer").register(meterRegistry);
 
     @Autowired
-    private final CartService cartService;
-
-    public ShoppingCartController(CartService cartService) {
+    public ShoppingCartController(CartService cartService, MeterRegistry meterRegistry) {
         this.cartService = cartService;
+        this.meterRegistry = meterRegistry;
     }
 
     @GetMapping(path = "/cart/{id}")
@@ -27,6 +40,10 @@ public class ShoppingCartController {
      */
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
+        //cartMap.put(cart.getId(), cart);
+        cartMap.remove(cart.getId());
+
+        meterRegistry.counter("checkouts").increment();
         return cartService.checkout(cart);
     }
 
@@ -38,6 +55,8 @@ public class ShoppingCartController {
      */
     @PostMapping(path = "/cart")
     public Cart updateCart(@RequestBody Cart cart) {
+        cartMap.put(cart.getId(), cart);
+
         return cartService.update(cart);
     }
 
@@ -48,8 +67,20 @@ public class ShoppingCartController {
      */
     @GetMapping(path = "/carts")
     public List<String> getAllCarts() {
-        return cartService.getAllsCarts();
+        return cartService.getAllCarts();
     }
 
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        Gauge.builder("carts", cartMap,
+                c -> c.values().size()).register(meterRegistry);
 
+        Gauge.builder("carts_value", cartMap,
+                c -> c.values()
+                        .stream()
+                        .map(Cart::getValue)
+                        .mapToLong(Long::longValue)
+                        .sum()
+                ).register(meterRegistry);
+    }
 }

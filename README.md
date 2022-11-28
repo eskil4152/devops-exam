@@ -38,3 +38,6 @@
         - Finne REPO env variabelen
             - Bytt ut min repo-addresse med din
         - Du må ikke ha :$rev og :latest, men det gjør det lett å finne alle versjonene av imaget du har laget, og å alltid ha en latest, som er fint til f.eks. AppRunner
+
+# Task 5
+    Terraform prøver å lage en bucket som heter analytics-jim, men siden det ikke er en state fil på github eller s3 så vil ikke terraform huske at den bucketen allerede er laget
