@@ -11,9 +11,4 @@ class DevopsExamApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    void fail() {
-        assertEquals(3, 3);
-    }
 }
