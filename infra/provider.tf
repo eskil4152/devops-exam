@@ -9,7 +9,6 @@ terraform {
   backend "s3" {
     bucket = "analytics-1052"
     key = "state-file/terraform.state"
-    region = "eu-north-1"
+    region = "eu-west-1"
   }
-
 }
