@@ -4,12 +4,10 @@
 #  bucket = "analytics-${var.candidate_id}"
 #}
 
-/*
 terraform {
   backend "s3" {
-    bucket = "analyticsbucket"
+    bucket = "analytics-${var.candidate_id}"
     key    = "${var.candidate_id}/apprunner.state"
     region = "eu-north-1"
   }
 }
-*/
