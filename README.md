@@ -35,7 +35,6 @@
             - Lage en secret som heter AWS_SECRET_ACCESS_KEY
                 - Lime inn din key fra iam filen
         - Gå til docker.yml filen
-        - Finne linje 29 - 32
-        - Bytte ut alt bak tag/push til eget ecr repo navn, med :$rev og :latest bak
-            - Du kan også finne koden i ECR repositoriet ved å trykke på "view push commands"
+        - Finne REPO env variabelen
+            - Bytt ut min repo-addresse med din
         - Du må ikke ha :$rev og :latest, men det gjør det lett å finne alle versjonene av imaget du har laget, og å alltid ha en latest, som er fint til f.eks. AppRunner
