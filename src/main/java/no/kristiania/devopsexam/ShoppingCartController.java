@@ -2,7 +2,6 @@ package no.kristiania.devopsexam;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -11,16 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-@RestController()
+@RestController
 public class ShoppingCartController implements ApplicationListener<ApplicationReadyEvent> {
 
-    private Map<String, Cart> cartMap = new HashMap();
+    private final Map<String, Cart> cartMap = new HashMap();
     private final CartService cartService;
-    private MeterRegistry meterRegistry;
-
-    Timer timer = Timer.builder("timer").register(meterRegistry);
+    private final MeterRegistry meterRegistry;
 
     @Autowired
     public ShoppingCartController(CartService cartService, MeterRegistry meterRegistry) {
@@ -40,7 +36,6 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      */
     @PostMapping(path = "/cart/checkout")
     public String checkout(@RequestBody Cart cart) {
-        //cartMap.put(cart.getId(), cart);
         cartMap.remove(cart.getId());
 
         meterRegistry.counter("checkouts").increment();
@@ -76,11 +71,9 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
                 c -> c.values().size()).register(meterRegistry);
 
         Gauge.builder("carts_value", cartMap,
-                c -> c.values()
-                        .stream()
-                        .map(Cart::getValue)
-                        .mapToLong(Long::longValue)
-                        .sum()
-                ).register(meterRegistry);
+                c -> c.values().stream()
+                        .flatMap(d -> d.getItems().stream()
+                                .map(i -> i.getUnitPrice() * i.getQty()))
+                        .reduce(0f, Float::sum)).register(meterRegistry);
     }
 }
