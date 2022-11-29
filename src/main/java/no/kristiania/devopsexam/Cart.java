@@ -10,7 +10,11 @@ import java.util.List;
 @Builder
 public class Cart {
     private String id;
-    List<Item> items = new ArrayList<>();
+    public static List<Item> items = new ArrayList<>();
+
+    public String getId(){
+        return id;
+    }
 
     public long getValue(){
 
