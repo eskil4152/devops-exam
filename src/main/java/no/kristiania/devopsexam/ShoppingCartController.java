@@ -1,5 +1,6 @@
 package no.kristiania.devopsexam;
 
+import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,13 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      * @return an order ID
      */
     @PostMapping(path = "/cart/checkout")
+    @Timed
     public String checkout(@RequestBody Cart cart) {
         cartMap.remove(cart.getId());
 
         meterRegistry.counter("checkouts").increment();
+        meterRegistry.timer("timer_for_checkout");
+
         return cartService.checkout(cart);
     }
 

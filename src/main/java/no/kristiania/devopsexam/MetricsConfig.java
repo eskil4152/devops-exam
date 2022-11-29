@@ -2,6 +2,7 @@ package no.kristiania.devopsexam;
 
 import io.micrometer.cloudwatch2.CloudWatchConfig;
 import io.micrometer.cloudwatch2.CloudWatchMeterRegistry;
+import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,11 @@ import java.util.Map;
 
 @Configuration
 public class MetricsConfig {
+
+    @Bean
+    public TimedAspect timedAspect(MeterRegistry meterRegistry) {
+        return new TimedAspect(meterRegistry);
+    }
     @Bean
     public CloudWatchAsyncClient cloudWatchAsyncClient() {
         return CloudWatchAsyncClient
