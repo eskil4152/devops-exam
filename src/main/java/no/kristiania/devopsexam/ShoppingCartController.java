@@ -40,7 +40,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      * @return an order ID
      */
     @PostMapping(path = "/cart/checkout")
-    @Timed("timer_for_checkout")
+    @Timed("checkouts_timer")
     public String checkout(@RequestBody Cart cart) {
         cartMap.remove(cart.getId());
         meterRegistry.counter("checkouts").increment();
