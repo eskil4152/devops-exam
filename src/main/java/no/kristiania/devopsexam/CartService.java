@@ -1,5 +1,6 @@
 package no.kristiania.devopsexam;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface CartService {
 
     Cart update(Cart cart);
 
+    @Timed("checkout_timer_service")
     String checkout(Cart cart);
 
     List<String> getAllCarts();
