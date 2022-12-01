@@ -19,8 +19,6 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     private final CartService cartService;
     private MeterRegistry meterRegistry;
 
-    //public Timer timer = Timer.builder("timer").publishPercentileHistogram().register(meterRegistry);
-
     @Autowired
     public ShoppingCartController(CartService cartService, MeterRegistry meterRegistry) {
         this.cartService = cartService;
