@@ -71,7 +71,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "checkouts_timer.max"
+            "checkouts_timer_test_name.max"
           ]
         ],
         "period": 60,
