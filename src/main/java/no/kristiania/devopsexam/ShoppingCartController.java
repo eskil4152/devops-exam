@@ -1,6 +1,7 @@
 package no.kristiania.devopsexam;
 
 import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
 
     private final Map<String, Cart> cartMap = new HashMap();
     private final CartService cartService;
-    private MeterRegistry meterRegistry;
+    private final MeterRegistry meterRegistry;
+    private final Counter checkoutsCounter;
 
     @Autowired
     public ShoppingCartController(CartService cartService, MeterRegistry meterRegistry) {
         this.cartService = cartService;
         this.meterRegistry = meterRegistry;
+
+        checkoutsCounter = meterRegistry.counter("checkoutsCounter");
+
     }
 
     @GetMapping(path = "/cart/{id}")
@@ -39,8 +44,9 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @Timed("checkouts_timer_test_name")
     public String checkout(@RequestBody Cart cart) {
         cartMap.remove(cart.getId());
+        System.out.println(cartMap.size());
 
-        meterRegistry.counter("checkouts").increment();
+        checkoutsCounter.increment();
 
         return cartService.checkout(cart);
     }

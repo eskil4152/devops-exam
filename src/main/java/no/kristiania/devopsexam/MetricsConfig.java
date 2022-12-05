@@ -20,6 +20,7 @@ public class MetricsConfig {
     public TimedAspect timedAspect(MeterRegistry meterRegistry) {
         return new TimedAspect(meterRegistry);
     }
+
     @Bean
     public CloudWatchAsyncClient cloudWatchAsyncClient() {
         return CloudWatchAsyncClient
@@ -31,7 +32,7 @@ public class MetricsConfig {
     @Bean
     public MeterRegistry meterRegistry() {
         CloudWatchConfig cloudWatchConfig = setupCloudWatchConfig();
-        return  new CloudWatchMeterRegistry(
+        return new CloudWatchMeterRegistry(
                 cloudWatchConfig,
                 Clock.SYSTEM,
                 cloudWatchAsyncClient()
