@@ -42,46 +42,5 @@
 # Task 5
     Terraform prøver å lage en bucket som heter analytics-jim, men siden det ikke er en state fil på github eller s3 så vil ikke terraform huske at den bucketen allerede er laget
 
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "1",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "12",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "13",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "11",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "131",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
-curl --location --request POST 'http://localhost:8080/cart' \
---header 'Content-Type: application/json' \
---data-raw '{
-"id": "15",
-"items": [{"description":"Something","qty":100,"unitPrice":20 }, {"description":"Something else","qty":200,"unitPrice":5 }]
-}'|jq
-
+# Extra
+    Jeg fikk ikke til å legge til @Timed på dashboard, vises kun om man går til alle metrics -> 1052 -> exception, method osv -> finner med metric name
