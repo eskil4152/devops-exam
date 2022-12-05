@@ -17,10 +17,10 @@ resource "aws_cloudwatch_dashboard" "main" {
             "checkouts.count"
           ]
         ],
-        "period": 60,
+        "period": 3600,
         "stat": "Maximum",
         "region": "eu-west-1",
-        "title": "Total checkouts"
+        "title": "Total checkouts per hour"
       }
     },
     {
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_dashboard" "main" {
             "carts.value"
           ]
         ],
-        "period": 60,
+        "period": 300,
         "stat": "Maximum",
         "region": "eu-west-1",
         "title": "Total carts"
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_dashboard" "main" {
             "carts_value.value"
           ]
         ],
-        "period": 60,
+        "period": 300,
         "stat": "Maximum",
         "region": "eu-west-1",
         "title": "Total carts value"
@@ -77,7 +77,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "period": 60,
         "stat": "Average",
         "region": "eu-west-1",
-        "title": "Checkout Time"
+        "title": "Average checkout time per minute"
       }
     }
   ]
