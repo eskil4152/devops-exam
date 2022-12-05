@@ -41,7 +41,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      * @return an order ID
      */
     @PostMapping(path = "/cart/checkout")
-    @Timed("checkouts_timer_test_name")
+    @Timed("time-to-checkout")
     public String checkout(@RequestBody Cart cart) {
         cartMap.remove(cart.getId());
         System.out.println(cartMap.size());
