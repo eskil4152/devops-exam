@@ -71,11 +71,11 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "checkouts_timer_test_name.max"
+            "checkouts_timer_test_name.avg"
           ]
         ],
         "period": 60,
-        "stat": "Average",
+        "stat": "Maximum",
         "region": "eu-west-1",
         "title": "Average checkout time per minute"
       }
