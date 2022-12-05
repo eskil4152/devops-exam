@@ -25,7 +25,6 @@ class NaiveCartImpl implements CartService {
     }
 
     @Override
-    @Timed("checkouts_timer_impl")
     public String checkout(Cart cart) {
         shoppingCarts.remove(cart.getId());
         return UUID.randomUUID().toString();

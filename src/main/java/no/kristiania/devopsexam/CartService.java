@@ -12,7 +12,6 @@ public interface CartService {
 
     Cart update(Cart cart);
 
-    @Timed("checkout_timer_service")
     String checkout(Cart cart);
 
     List<String> getAllCarts();
