@@ -71,7 +71,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "checkouts_timer_test_name.avg"
+            "time-to-checkout.avg"
           ]
         ],
         "period": 60,
@@ -90,7 +90,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "checkouts_timer_test_name.value"
+            "time-to-checkout.value"
           ]
         ],
         "period": 60,
@@ -109,7 +109,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "checkouts_timer_test_name.count"
+            "time-to-checkout.count"
           ]
         ],
         "period": 60,
