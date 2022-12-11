@@ -10,6 +10,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,14 +43,13 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      * @return an order ID
      */
     @PostMapping(path = "/cart/checkout")
-    @Timed("time-to-checkout")
+    @Timed(value = "timed-tester")
     public String checkout(@RequestBody Cart cart) {
-        meterRegistry.timer("test-timer-measure").measure();
+        meterRegistry.timer("test-timer-measure").record(() -> {
+            cartMap.remove(cart.getId());
 
-        cartMap.remove(cart.getId());
-        System.out.println(cartMap.size());
-
-        checkoutsCounter.increment();
+            checkoutsCounter.increment();
+        });
 
         return cartService.checkout(cart);
     }
