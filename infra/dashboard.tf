@@ -79,6 +79,25 @@ resource "aws_cloudwatch_dashboard" "main" {
         "region": "eu-west-1",
         "title": "Average checkout time per minute"
       }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "${var.candidate_id}",
+            "test-timer-measure.max"
+          ]
+        ],
+        "period": 60,
+        "stat": "Maximum",
+        "region": "eu-west-1",
+        "title": "Average checkout time per minute"
+      }
     }
   ]
 }
