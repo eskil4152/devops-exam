@@ -21,15 +21,11 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     private final Map<String, Cart> cartMap = new HashMap();
     private final CartService cartService;
     private final MeterRegistry meterRegistry;
-    private final Counter checkoutsCounter;
 
     @Autowired
     public ShoppingCartController(CartService cartService, MeterRegistry meterRegistry) {
         this.cartService = cartService;
         this.meterRegistry = meterRegistry;
-
-        checkoutsCounter = meterRegistry.counter("checkoutsCounter");
-
     }
 
     @GetMapping(path = "/cart/{id}")
@@ -43,15 +39,15 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
      * @return an order ID
      */
     @PostMapping(path = "/cart/checkout")
-    @Timed(value = "timed-tester")
+    @Timed(value = "checkout_timer")
     public String checkout(@RequestBody Cart cart) {
-        meterRegistry.timer("test-timer-measure").record(() -> {
+        meterRegistry.timer("checkout_function_timer").record(() -> {
             cartMap.remove(cart.getId());
-
-            checkoutsCounter.increment();
+            meterRegistry.counter("checkoutsCounter").increment();
+            cartService.checkout(cart);
         });
 
-        return cartService.checkout(cart);
+        return "Cart " + cart.getId() +  " checked out";
     }
 
     /**

@@ -71,7 +71,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "timed-tester.max"
+            "checkout_timer.max"
           ]
         ],
         "period": 300,
@@ -90,11 +90,11 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "test-timer-measure.max"
+            "checkout_function_timer.max"
           ]
         ],
         "period": 60,
-        "stat": "Maximum",
+        "stat": "Average",
         "region": "eu-west-1",
         "title": "Average checkout time per minute"
       }
