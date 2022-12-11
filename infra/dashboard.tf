@@ -74,7 +74,7 @@ resource "aws_cloudwatch_dashboard" "main" {
             "time-to-checkout.avg"
           ]
         ],
-        "period": 60,
+        "period": 300,
         "stat": "Maximum",
         "region": "eu-west-1",
         "title": "Average checkout time per minute"
@@ -90,32 +90,13 @@ resource "aws_cloudwatch_dashboard" "main" {
         "metrics": [
           [
             "${var.candidate_id}",
-            "time-to-checkout.value"
+            "test-timer-measure.max"
           ]
         ],
         "period": 60,
         "stat": "Maximum",
         "region": "eu-west-1",
-        "title": "Average checkout time per minute value"
-      }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-          [
-            "${var.candidate_id}",
-            "time-to-checkout.count"
-          ]
-        ],
-        "period": 60,
-        "stat": "Maximum",
-        "region": "eu-west-1",
-        "title": "Average checkout time per minute count"
+        "title": "Average checkout time per minute"
       }
     }
   ]

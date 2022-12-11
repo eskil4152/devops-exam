@@ -4,6 +4,7 @@ import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -43,6 +44,8 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
     @PostMapping(path = "/cart/checkout")
     @Timed("time-to-checkout")
     public String checkout(@RequestBody Cart cart) {
+        meterRegistry.timer("test-timer-measure").measure();
+
         cartMap.remove(cart.getId());
         System.out.println(cartMap.size());
 
