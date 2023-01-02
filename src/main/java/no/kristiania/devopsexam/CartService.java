@@ -1,5 +1,10 @@
 package no.kristiania.devopsexam;
 
+
+/**
+ * Added a comment
+ */
+
 import io.micrometer.core.annotation.Timed;
 import org.springframework.stereotype.Component;
 
