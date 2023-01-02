@@ -78,7 +78,7 @@ public class ShoppingCartController implements ApplicationListener<ApplicationRe
         Gauge.builder("carts", cartMap,
                 c -> c.values().size()).register(meterRegistry);
 
-        Gauge.builder("carts_value", cartMap,
+            Gauge.builder("carts_value", cartMap,
                 c -> c.values().stream()
                         .flatMap(d -> d.getItems().stream()
                                 .map(i -> i.getUnitPrice() * i.getQty()))
