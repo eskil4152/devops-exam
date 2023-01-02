@@ -20,7 +20,7 @@ resource "aws_cloudwatch_dashboard" "main" {
         "period": 3600,
         "stat": "Maximum",
         "region": "eu-west-1",
-        "title": "Total checkouts per hour zzz"
+        "title": "Total checkouts per hour zzzzzzz"
       }
     },
     {
